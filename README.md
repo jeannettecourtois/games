@@ -8,11 +8,10 @@ Each game has its own folder with the source code and a README file explaining h
 
 ## 📂 Games List
 
-- 🐍 [Snake](./snake)  
-  The classic Snake game. Move the snake, eat food to grow, and avoid hitting the walls or yourself.
+- 🥅 [Tic-Tac-Toe](./tic_tac_toe)  
+  
 
-- 🧱 [Tetris](./tetris)  
+- 🎲 [Conway's Game of Life](./game_of_life)  
   The timeless puzzle game: stack the falling pieces and complete lines to score points.
 
-- 🏓 [Pong](./pong)  
-  A remake of the famous Pong game. Play against a friend or the computer.
+
