@@ -12,6 +12,7 @@ Each game has its own folder with the source code and a README file explaining h
   
 
 - 🎲 [Conway's Game of Life](./game_of_life)  
-  The timeless puzzle game: stack the falling pieces and complete lines to score points.
 
+
+- 🍻 [Alcoholic Steeve](./alcoholic_steeve)
 
