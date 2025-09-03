@@ -2,6 +2,7 @@ import math as mt
 from typing import Callable
 import random
 import numpy as np 
+import tkinter as tk
 
 # Some data structures
 
@@ -176,28 +177,48 @@ def minmax(grid: State, player: Player) -> Score:
             value = min(value, minmax(play(grid, player, action), X))
         return value
 
-#optimal action for the current player using the minmax algorithm
-def minmax_action(grid: State, player: Player, depth: int = 0) -> tuple[Score, Action]:
-    if final(grid):
-        pass
+
     
 
 # Eventual classes we will need 
 class Player: 
-    pass 
+    def __init__(self, name:str, player_type:Player):
+        self._name = name 
+        self._player_type = player_type
+    
+    @property 
+    def name(self)->str:
+        return self._name 
+    @property 
+    def player_type(self):
+        return self._player_type
+    
 class Game: 
     pass 
 class Score:
-    pass 
+    def __init__(self, score:Score):
+        self._score = score
 
 
 def main():
-    print("Hello Tic Tac Toe")
-    # grid_1 = grid_tuple_to_grid_list(GRID_1)
-    # print(grid_list_to_grid_tuple(grid_1))
-    print(grid_tuple_to_grid_list(GRID_1))
-    print(play(GRID_1, X, (0,0)))
-    print(minmax(GRID_3, O))
+    #colors 
+    color_gray = "#808080"
+    
+    current_player = Player("X", X)
+    
+    #window setup
+    window = tk.Tk()
+    window.title("Tic Tac Toe")
+    window.resizable(False, False) #the player can't resize the window
+    
+    frame = tk.Frame(window)
+    label = tk.Label(frame, text=current_player.name+"'s turn", font=("Consolas", 24), background=color_gray, foreground="white")
+    
+    label.pack()
+    frame.pack()
+    
+    window.mainloop()
+    
 
 if __name__ == "__main__":
     main()
