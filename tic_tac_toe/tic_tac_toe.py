@@ -143,9 +143,8 @@ def main():
     print("Hello Tic Tac Toe")
     # grid_1 = grid_tuple_to_grid_list(GRID_1)
     # print(grid_list_to_grid_tuple(grid_1))
-    print(grid_tuple_to_grid_list(GRID_6))
-    test = play(GRID_6, O, (1,0))
-    print(test)
+    print(grid_tuple_to_grid_list(GRID_1))
+    print(play(GRID_1, X, (0,0)))
 
 if __name__ == "__main__":
     main()
