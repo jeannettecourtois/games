@@ -69,7 +69,9 @@ def line(grid: State, player: Player) -> bool:
         return True
     if the_column(the_grid, player):
         return True
-    if diagonal(the_grid, player):
+    if first_diagonal(the_grid, player):
+        return True
+    if second_diagonal(the_grid, player):
         return True
     return False 
 
@@ -90,7 +92,7 @@ def the_column(grid:list[list[int]], player:Player)->bool:
             return True
     return False 
         
-def diagonal(grid: list[list[int]], player: Player) -> bool:
+def first_diagonal(grid: list[list[int]], player: Player) -> bool:
     diagonal = []
     for i in range(3):
         diagonal.append(grid[i][i])
@@ -98,8 +100,35 @@ def diagonal(grid: list[list[int]], player: Player) -> bool:
         return True
     return False 
 
+def second_diagonal(grid: list[list[int]], player: Player) -> bool:
+    diagonal = []
+    for i in range(3):
+        diagonal.append(grid[i][2-i])
+    if len(set(diagonal)) == 1 and diagonal[0] == player:
+        return True
+    return False
 
-            
+def final(grid: State) -> bool:
+    if line(grid, X) or line(grid, O):
+        return True
+    elif len(legals(grid)) == 0:
+        return True
+    else:
+        return False
+
+def score(grid: State) -> Score:
+    if final(grid) and line(grid, X):
+        return 1.0
+    elif final(grid) and line(grid, O):
+        return -1.0
+    else: 
+        return 0.0
+        
+def play(grid: State, player: Player, action: Action) -> State:
+    the_grid = grid_tuple_to_grid_list(grid)
+    the_grid[action[0]][action[1]] = player
+    return grid_list_to_grid_tuple(the_grid)
+    
         
 # Eventual classes we will need 
 class Player: 
@@ -114,8 +143,9 @@ def main():
     print("Hello Tic Tac Toe")
     # grid_1 = grid_tuple_to_grid_list(GRID_1)
     # print(grid_list_to_grid_tuple(grid_1))
-    line_test = line(GRID_6, X)
-    print(line_test)
+    print(grid_tuple_to_grid_list(GRID_6))
+    test = play(GRID_6, O, (1,0))
+    print(test)
 
 if __name__ == "__main__":
     main()
