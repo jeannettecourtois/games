@@ -161,7 +161,22 @@ def strategy_random(grid: State, player: Player) -> Action:
     random_number = random.randint(0, len(legals(grid))-1)
     return actions[random_number]
 
+# Minmax algorithm applied to Tic Tac Toe
 def minmax(grid: State, player: Player) -> Score:
+    if final(grid):
+        return score(grid)
+    if player == X:
+        value = -mt.inf 
+        for action in legals(grid):
+            value = max(value, minmax(play(grid, player, action), O))
+        return value 
+    else: #player == O
+        value = mt.inf 
+        for action in legals(grid):
+            value = min(value, minmax(play(grid, player, action), X))
+        return value
+
+def minmax_action(grid: State, player: Player, depth: int = 0) -> tuple[Score, Action]:
     pass
 
 # Eventual classes we will need 
