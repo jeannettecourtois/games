@@ -199,25 +199,38 @@ class Score:
     def __init__(self, score:Score):
         self._score = score
 
+def new_game():
+    pass
+
+def next_turn(row, column):
+    pass      
 
 def main():
-    #colors 
-    color_gray = "#808080"
     
-    current_player = Player("X", X)
-    
+    players = ["X", "O"]
+    name_player = random.choice(players)
+    current_player = Player(name_player, X)
+    buttons = grid_tuple_to_grid_list(EMPTY_GRID)
     #window setup
     window = tk.Tk()
     window.title("Tic Tac Toe")
-    window.resizable(False, False) #the player can't resize the window
+    # window.resizable(False, False) #the player can't resize the window
+    label = tk.Label(frame, text=current_player.name+"'s turn", font=("Consolas", 24))
+    label.pack(side = "top")
+    reset_button = tk.Button(text="restart", font=("Consolas", 20), command=new_game())
+    reset_button.pack(side="bottom")
+    
+    
+    for row in range(3):
+        for column in range(3):
+            buttons[row][column] = tk.Button(frame, text = "", font=("Consolas", 40), width=5, height=2, command = lambda row = row, column = column: next_turn(row, column))
+            
+
     
     frame = tk.Frame(window)
-    label = tk.Label(frame, text=current_player.name+"'s turn", font=("Consolas", 24), background=color_gray, foreground="white")
-    
-    label.pack()
     frame.pack()
     
-    window.mainloop()
+    window.mainloop() # for the end of our program
     
 
 if __name__ == "__main__":
