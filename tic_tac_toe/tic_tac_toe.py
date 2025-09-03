@@ -59,25 +59,33 @@ def legals(grid: State) -> list[Action]:
     return actions 
 
 def line(grid: State, player: Player) -> bool:
-    if the_line(grid, player):
+    the_grid = grid_tuple_to_grid_list(grid)
+    if the_line(the_grid, player):
         return True
-    if the_column(grid, player):
+    if the_column(the_grid, player):
         return True
-    if diagonal(grid, player):
+    if diagonal(the_grid, player):
         return True
     return False 
 
 
-def the_line(grid:State, player:Player)->bool:
+def the_line(grid:list[list[int]], player:Player)->bool:
     for row in grid:
         if (len(set(row)) == 1) and (row[0] == player):
             return True
     return False 
 
-def the_column(grid:State, player:Player)->bool:
-    pass
-
-def diagonal(grid: State, player: Player) -> bool:
+def the_column(grid:list[list[int]], player:Player)->bool:
+    column = []
+    for j in range(3):
+        column.clear()
+        for i in range(3):
+            column.append(grid[i][j])
+        if len(set(column)) == 1 and column[0] == player:
+            return True
+    return False 
+        
+def diagonal(grid: list[list[int]], player: Player) -> bool:
     diagonal = []
     for i in range(3):
         diagonal.append(grid[i][i])
