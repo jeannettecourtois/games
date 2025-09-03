@@ -5,11 +5,13 @@ import numpy as np
 
 # Some data structures
 
+
 Grid = tuple[tuple[int, ...], ...]
 State = Grid
 Action = tuple[int, int]
 Player = int
 Score = float
+Strategy = Callable[[State, Player], Action]
 
 # Some constants
 DRAW = 0
@@ -129,7 +131,39 @@ def play(grid: State, player: Player, action: Action) -> State:
     the_grid[action[0]][action[1]] = player
     return grid_list_to_grid_tuple(the_grid)
     
-        
+# Strategy = Callable[[State, Player], Action]
+def tictactoe(strategy_X: Strategy, strategy_O: Strategy, debug: bool = False) -> Score:
+    grid = EMPTY_GRID
+    player = X #we start with player X
+    # We play until the game is finished
+    while not(final(grid)):
+        if debug:
+            print(grid)
+            raise Exception("We had to stop the game for debugging")
+        if player == X:
+            action = strategy_X(grid, player)
+            grid = play(grid, player, action)
+            player = O
+        if player == O:
+            action = strategy_O(grid, player)
+            grid = play(grid, player, action)
+            player = X 
+    return score(grid)
+
+#this player always uses the first legal action available
+def strategy_first_legal(grid: State, player: Player) -> Action:
+    actions = legals(grid)
+    return actions[0]  
+
+#this player always uses a random legal action available
+def strategy_random(grid: State, player: Player) -> Action:
+    actions = legals(grid)
+    random_number = random.randint(0, len(legals(grid))-1)
+    return actions[random_number]
+
+def minmax(grid: State, player: Player) -> Score:
+    pass
+
 # Eventual classes we will need 
 class Player: 
     pass 
