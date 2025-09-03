@@ -176,8 +176,11 @@ def minmax(grid: State, player: Player) -> Score:
             value = min(value, minmax(play(grid, player, action), X))
         return value
 
+#optimal action for the current player using the minmax algorithm
 def minmax_action(grid: State, player: Player, depth: int = 0) -> tuple[Score, Action]:
-    pass
+    if final(grid):
+        pass
+    
 
 # Eventual classes we will need 
 class Player: 
@@ -194,6 +197,7 @@ def main():
     # print(grid_list_to_grid_tuple(grid_1))
     print(grid_tuple_to_grid_list(GRID_1))
     print(play(GRID_1, X, (0,0)))
+    print(minmax(GRID_3, O))
 
 if __name__ == "__main__":
     main()
