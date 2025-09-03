@@ -41,6 +41,11 @@ GRID_4: Grid = ((0, 0, 0), (X, X, O), (0, 0, 0))
 # (X, X, O),
 # (0, 0, 0))
 
+GRID_5: Grid = ((0, 0, 0), (X, X, X), (0, 0, 0))
+
+GRID_6: Grid = ((O, 0, X), (O, O, X), (O, 0, O))
+
+
 #preliminary functions
 def grid_tuple_to_grid_list(grid: Grid) -> list[list[int]]: 
     return [list(row) for row in grid]
@@ -107,8 +112,10 @@ class Score:
 
 def main():
     print("Hello Tic Tac Toe")
-    grid_1 = grid_tuple_to_grid_list(GRID_1)
-    print(grid_list_to_grid_tuple(grid_1))
+    # grid_1 = grid_tuple_to_grid_list(GRID_1)
+    # print(grid_list_to_grid_tuple(grid_1))
+    line_test = line(GRID_6, X)
+    print(line_test)
 
 if __name__ == "__main__":
     main()
