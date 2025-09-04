@@ -178,60 +178,67 @@ def minmax(grid: State, player: Player) -> Score:
         return value
 
 
-    
+states = grid_tuple_to_grid_list(EMPTY_GRID)
+players = [X, O]
+first_player = players[random.randint(0, 1)]
 
-# Eventual classes we will need 
-class Player: 
-    def __init__(self, name:str, player_type:Player):
-        self._name = name 
-        self._player_type = player_type
-    
-    @property 
-    def name(self)->str:
-        return self._name 
-    @property 
-    def player_type(self):
-        return self._player_type
-    
-class Game: 
-    pass 
-class Score:
-    def __init__(self, score:Score):
-        self._score = score
 
-def new_game():
-    pass
-
-def next_turn(row, column):
-    pass      
 
 def main():
+    def restart():
+        global states, first_player
+        states = grid_tuple_to_grid_list(EMPTY_GRID)
+        first_player = players[random.randint(0, 1)]
+        T.config(text = "First player is: " + who_is_the_first_player(first_player))
+        for i in range(3):
+            for j in range(3):
+                buttons[i][j].configure(text = "")
     
-    players = ["X", "O"]
-    name_player = random.choice(players)
-    current_player = Player(name_player, X)
+    def on_click(row, col):
+        global first_player
+        if first_player == X and states[row][col] == 0 and final(grid_list_to_grid_tuple(states)) == False:
+            buttons[row][col].configure(text = "X")
+            states[row][col] = X
+            first_player = O
+        if first_player == O and states[row][col] == 0 and final(grid_list_to_grid_tuple(states)) == False:
+            buttons[row][col].configure(text = "O")
+            states[row][col] = O
+            first_player = X
+        if final(grid_list_to_grid_tuple(states)):
+            if score(grid_list_to_grid_tuple(states)) == 1.0:
+                T.config(text = "X is the winner!")
+            elif score(grid_list_to_grid_tuple(states)) == -1.0:
+                T.config(text = "O is the winner!")
+            else:
+                T.config(text = "It's a draw!")
+    
+
+    
+    def who_is_the_first_player(player: Player)->str:
+        if first_player == X:
+            return "X"
+        else:
+            return "O"
+    #window settings 
+    root = tk.Tk()
+    root.title("Tic Tac Toe")
+    root.resizable(False, False)
+    button = tk.Button(root, text="Restart", font=("Arial", 20), command=restart, activebackground="blue", 
+                   activeforeground="white", height=2, width=10)
+    button.pack(side="bottom")
+    T = tk.Label(root, text="First player is: " + who_is_the_first_player(first_player), font=("Arial", 20))
+    T.pack(side="top")
     buttons = grid_tuple_to_grid_list(EMPTY_GRID)
-    #window setup
-    window = tk.Tk()
-    window.title("Tic Tac Toe")
-    # window.resizable(False, False) #the player can't resize the window
-    label = tk.Label(frame, text=current_player.name+"'s turn", font=("Consolas", 24))
-    label.pack(side = "top")
-    reset_button = tk.Button(text="restart", font=("Consolas", 20), command=new_game())
-    reset_button.pack(side="bottom")
-    
-    
-    for row in range(3):
-        for column in range(3):
-            buttons[row][column] = tk.Button(frame, text = "", font=("Consolas", 40), width=5, height=2, command = lambda row = row, column = column: next_turn(row, column))
-            
+    board = tk.Frame(root) # a box inside the window
+    board.pack() # put the box in the window
+    for i in range(3):
+        for j in range(3): 
+            buttons[i][j] = tk.Button(board,
+                        height = 4, width = 8, 
+                        font = ("Helvetica","20"), 
+                        command = lambda r = i, c = j : on_click(r,c))
+            buttons[i][j].grid(row = i, column = j)
 
-    
-    frame = tk.Frame(window)
-    frame.pack()
-    
-    window.mainloop() # for the end of our program
-    
-
+    tk.mainloop()
 if __name__ == "__main__":
     main()
