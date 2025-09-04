@@ -219,6 +219,9 @@ def main():
             return "X"
         else:
             return "O"
+    
+    def agent_player():
+        pass
     #window settings 
     root = tk.Tk()
     root.title("Tic Tac Toe")
@@ -226,6 +229,8 @@ def main():
     button = tk.Button(root, text="Restart", font=("Arial", 20), command=restart, activebackground="blue", 
                    activeforeground="white", height=2, width=10)
     button.pack(side="bottom")
+    another_button = tk.Button(root, text="Play with an AI agent", font=("Arial", 10), command=agent_player, activebackground="red", activeforeground="white", height=2, width=20)
+    another_button.pack(side="bottom")
     T = tk.Label(root, text="First player is: " + who_is_the_first_player(first_player), font=("Arial", 20))
     T.pack(side="top")
     buttons = grid_tuple_to_grid_list(EMPTY_GRID)
@@ -238,6 +243,9 @@ def main():
                         font = ("Helvetica","20"), 
                         command = lambda r = i, c = j : on_click(r,c))
             buttons[i][j].grid(row = i, column = j)
+    
+    
+    
 
     tk.mainloop()
 if __name__ == "__main__":
