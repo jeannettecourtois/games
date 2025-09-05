@@ -17,8 +17,8 @@ def random_grid(size:int) -> Grid:
 
 def next_grid(number_of_cycles:Cycles)->Grid:
     grid = random_grid(SIZE)
+    print(grid)
     for i in range(number_of_cycles):
-        print(grid)
         for row, col in np.ndindex(grid.shape):
             cells_alive = np.sum(grid[row-1:row+2][col-1:col+2]) - grid[row][col]
             
@@ -27,7 +27,8 @@ def next_grid(number_of_cycles:Cycles)->Grid:
             elif grid[row][col] == 1 and (cells_alive == 3 or cells_alive == 2):
                 grid[row][col] = 1
             elif grid[row][col] == 0 and cells_alive == 3:
-                grid[row][col] = 1  
+                grid[row][col] = 1 
+        print(grid)
     return 
 
 print(next_grid(2))
